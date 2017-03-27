@@ -1,5 +1,6 @@
 var webpackServer = require('webpack-dev-server'),
-    webpack       = require('webpack');
+    webpack       = require('webpack'),
+    path          = require('path');
 
 var webpackConfig = {
   entry: {
@@ -13,14 +14,24 @@ var webpackConfig = {
     filename: 'bundle.js',
     publicPath: '/build/' 
   },
+
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+
+  devtool: 'source-map',
+
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         loaders: 'babel-loader'
       }, {
-        test: /\.scss$/,
-        loader: 'style!css!sass'
+        test: /\.less$/,
+        loaders: 'style-loader!css-loader!less-loader'
+      }, {
+        test: /\.(png|jpg)$/,
+        loaders: 'url-loader?limit=8192'
       }
     ]
   },
