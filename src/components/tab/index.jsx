@@ -1,0 +1,108 @@
+import React, { Component, cloneElement, Children, PropTypes } from 'react';
+import classnames from 'classnames';
+
+import './less/index.less';
+import TabPane from './pane';
+import TabContent from './content';
+
+const noop = () => {};
+
+class Tab extends Component {
+  static propTypes = {
+    onClose: PropTypes.func,
+    onChange: PropTypes.func
+  };
+
+  static defaultProps = {
+    onClose: noop,
+    onChange: noop
+  };
+
+  constructor () {
+    super();
+
+    this.state = {
+      activedKey: null
+    };
+  }
+
+  onSelect (key) {
+    const { onChange } = this.props;
+
+    if (key === this.state.activedKey) {
+      return this;
+    }
+
+    this.setState({
+      activedKey: key
+    });
+
+    if (typeof onChange === 'function') {
+      onChange(key)
+    }
+  }
+
+  tabsRender () {
+    const { children, defaultActivedKey, className, onClose } = this.props;
+
+    if (this.state.activeKey === null) {
+      if (defaultActivedKey) {
+        this.state.activeKey = defaultActivedKey;
+      }
+    }
+
+    const content = [];
+
+    const tabs = Children.map(children, (child, index) => {
+      const key = child.key || index;
+      let actived = false;
+
+      if (this.state.activedKey) {
+        actived = this.state.activedKey === key;
+      } else {
+        this.state.activedKey = key;
+        actived = true;
+      }
+
+      content.push(
+        <TabContent key={key} actived={actived}>
+          {child.props.children}
+        </TabContent>
+      );
+
+      return cloneElement(child, {
+        key,
+        index: key,
+        onSelect: this.onSelect.bind(this),
+        onClose: (e) => onClose(key, e),
+        actived
+      });
+    });
+
+    const classes = classnames({
+      ['app__tabs']: true,
+      className: !!className
+    });
+
+    return (
+      <div className="app__tabs">
+        <div className="app__tabs-panes clearfix">
+          {tabs}
+        </div>
+        <div className="app__tabs-contents">
+          {content}
+        </div>
+      </div>
+    );
+  }
+
+
+  render () {
+    return this.tabsRender();
+  }
+}
+
+Tab.TabPane = TabPane;
+
+export default Tab;
+

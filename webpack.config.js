@@ -30,8 +30,8 @@ var webpackConfig = {
         test: /\.less$/,
         loaders: 'style-loader!css-loader!less-loader'
       }, {
-        test: /\.(png|jpg)$/,
-        loaders: 'url-loader?limit=8192'
+        test: /\.(png|jpg|ttf|woff)$/,
+        loaders: 'file-loader'
       }
     ]
   },
