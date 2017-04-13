@@ -54,7 +54,7 @@ class Tool extends React.Component {
     });
 
     return (
-      <div className="app__toolbar-tool" onClick={this.onSelect}>
+      <div className="app__toolbar-tool-text" onClick={this.onSelect}>
         <i className={classes}></i>
       </div>
     );

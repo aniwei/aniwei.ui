@@ -1,64 +1,45 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { createStore, combineReducers } from 'redux';
-import { Provider, connect } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import './components/common';
-import Scene from './components/scene';
-import List from './components/list';
-import Sidebar from './components/sidebar';
+import Routing from './routing';
 
-import reducers from './reducers';
+const Div = (props) => {
+  return <div>{new Date() - 0}</div>
+}
 
 const tools = [
-  {key: 'message', text: '请求数据', active: false, component: List },
-  {key: 'setting', text: '设置', active: false}
+  { 
+    key: 'data',
+    text: '常用工具',
+    list: [
+      {key: 'message', text: '请求数据', active: false, component: Div},
+      {key: 'setting', text: '设置', active: false, component: Div},
+      {key: 'share', text: '请求数据', active: false, component: Div},
+      {key: 'app', text: '设置', active: false}
+    ]
+  }, { 
+    key: 'about',
+    text: '关于',
+    list: [
+      {key: 'share', text: '请求数据', active: false, component: Div },
+      {key: 'app', text: '设置', active: false}
+    ]
+  },
 ];
 
-const store = createStore(reducers, { tools });
+const tabs = [
+  //{key: 'welcome', text: '欢迎使用', component: Div}
+];
 
-class App extends React.Component {
-  render () {
-    return (
-      <div className="app">
-        <Scene>
-          {this.props.children}
-        </Scene>
-        <Sidebar />
-      </div>
-    );
-  }
-}
+const store = {
+  tools,
+  tabs
+};
 
-
-const mapStateToProps = (state, props) => {
-
-  return {
-    tools: state.tools
-  };
-}
-
-const AppRouter = connect(mapStateToProps)((props) => {
-  const { tools } = props;
-  const routesElement = tools.map((tool) => {
-    return (
-      <Route path={tool.key} component={tool.component} key={`route-${tool.key}`} />
-    );
-  });
-
-  return (
-    <Router>
-      <Route exact path="/" component={App}>
-        {routesElement}
-      </Route>
-    </Router>
-  );
-});
 
 render(
-  <Provider store={store}>
-    <AppRouter />
-  </Provider>,
+  <Routing {...store}/>,
   document.getElementById('app')
 );

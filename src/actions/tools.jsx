@@ -1,8 +1,8 @@
 import constants from '../constants';
 
-export function toolActive (tool) {
+export function toolSelect (tool) {
   return {
-    type: constants.TOOL_ACTIVE,
+    type: constants.TOOL_SELECT,
     tool
   };
 }

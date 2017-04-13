@@ -1,47 +1,24 @@
 import React from 'react';
 import classnames from 'classnames';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 import './less/index.less';
 
 import Tab from '../tab';
 import Toolbar from '../toolbar';
-
 import actions from '../../actions';
 
 const TabPane = Tab.TabPane;
 
 class Scene extends React.Component {
-  onToolSelect = (key, tool) => {
-    const { onToolSelect } = this.props;
-
-    tool.active = !tool.active;
-
-    onToolSelect(tool);
-  }
-
-  onTabClose = (key) => {
-    const { onToolSelect, tools } = this.props;
-    let tool;
-
-    tools.some((t) => {
-      if (t.key === key) {
-        return tool = t;
-      }
-    });
-
-    tool.active =! tool.active;
-
-    onToolSelect(tool);
-  }
-
+  
   tabsRender () {
-    const { tools } = this.props;
-    const tabElements = tools.filter(tool => tool.active).map(tool => <TabPane fixed={tool.fixed} tab={tool.text} key={tool.key} />);
+    const { tabs, children, location } = this.props;
+    const tabElements = tabs.map(
+      tool => <TabPane fixed={tool.fixed} tab={tool.text} key={tool.key}>{children}</TabPane>
+    );
 
     return (
-      <Tab onClose={this.onTabClose}>
+      <Tab onClose={this.onTabClose} pathname={location.pathname}>
         {tabElements}
       </Tab>
     );
@@ -56,7 +33,10 @@ class Scene extends React.Component {
         <div className="app__scene-header">
           <div className="app__scene-logo">
             <div className="app__scene-logo-img"></div>
-            <div className="app__scene-logo-text">aniwei.proxy</div>
+            <div className="app__scene-logo-text">
+              aniwei.studio<br />
+              your professional devtool
+              </div>
           </div>
           <div className="app__scene-search-bar">
             <i className="iconfont icon-search app__scene-search-bar-icon"></i>
@@ -75,8 +55,12 @@ class Scene extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
+  const { locationBeforeTransitions } = state.routing;
+  
   return {
-    tools: state.tools
+    tools: state.tools,
+    tabs: state.tabs,
+    location: locationBeforeTransitions
   };
 }
 

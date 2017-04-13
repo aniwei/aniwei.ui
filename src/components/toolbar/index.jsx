@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import './less/index.less';
 
@@ -16,10 +17,23 @@ class Toolbar extends React.Component {
 
   toolsRender () {
     const { tools, onSelect } = this.props;
-    const toolsElement = tools.map((tool, index) => {
+    const toolsElement = tools.map((group, index) => {
+      const listElement = group.list.map(
+        li => 
+          <Link to={`${group.key}/${li.key}`} className="app__toolbar-tool" key={`group:${group.key},tool:${li.key}`}>
+            <Tool 
+              key={`group:${group.key},tool:${li.key}`}
+              selected={li.active} 
+              type={li.key} 
+              fixed={li.fixed} 
+              onSelect={(e) => onSelect(li.key, li, group.key, group, e)} 
+            />
+          </Link>
+      );
+
       return (
-        <li className="app__toolbar-item" key={`${tool.key}-${index}`} title={tool.text}>
-          <Tool selected={tool.active} type={tool.key} fixed={tool.fixed} onSelect={(e) => onSelect(tool.key, tool, e)} />
+        <li className="app__toolbar-item" key={`group:${group.key}`} title={group.text}>
+          {listElement}
         </li>
       );
     });

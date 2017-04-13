@@ -3,7 +3,6 @@ import classnames from 'classnames';
 
 import './less/index.less';
 import TabPane from './pane';
-import TabContent from './content';
 
 const noop = () => {};
 
@@ -26,7 +25,7 @@ class Tab extends Component {
     };
   }
 
-  onSelect (key) {
+  onSelect = (key) => {
     const { onChange } = this.props;
 
     if (key === this.state.activedKey) {
@@ -42,6 +41,16 @@ class Tab extends Component {
     }
   }
 
+  onClose = (key, e) => {
+    const { onClose } = this.props;
+
+    if (key === this.state.activedKey) {
+
+    }
+
+    onClose(key, e);
+  }
+
   tabsRender () {
     const { children, defaultActivedKey, className, onClose } = this.props;
 
@@ -52,7 +61,6 @@ class Tab extends Component {
     }
 
     const content = [];
-
     const tabs = Children.map(children, (child, index) => {
       const key = child.key || index;
       let actived = false;
@@ -64,20 +72,14 @@ class Tab extends Component {
         actived = true;
       }
 
-      content.push(
-        <TabContent key={key} actived={actived}>
-          {child.props.children}
-        </TabContent>
-      );
-
       return cloneElement(child, {
         key,
         index: key,
-        onSelect: this.onSelect.bind(this),
-        onClose: (e) => onClose(key, e),
+        onSelect: this.onSelect,
+        onClose: (e) => this.onClose(key, e),
         actived
       });
-    });
+    });    
 
     const classes = classnames({
       ['app__tabs']: true,
@@ -88,9 +90,6 @@ class Tab extends Component {
       <div className="app__tabs">
         <div className="app__tabs-panes clearfix">
           {tabs}
-        </div>
-        <div className="app__tabs-contents">
-          {content}
         </div>
       </div>
     );

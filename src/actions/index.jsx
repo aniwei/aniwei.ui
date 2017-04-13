@@ -1,5 +1,7 @@
-import { toolActive } from './tools';
+import { toolSelect } from './tools';
+import { tabPush } from './tabs';
 
 export default {
-  toolActive
+  toolSelect,
+  tabPush
 };

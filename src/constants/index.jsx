@@ -8,3 +8,5 @@ export default constants;
 
 // actions create
 actionConstants('TOOL_ACTIVE');
+actionConstants('TAB_PUSH');
+actionConstants('TAB_POP');

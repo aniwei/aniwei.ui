@@ -9,11 +9,29 @@
 
 .app__toolbar-item {
   position: relative;
-  width: 60px;
   text-align: center;
-  color: #fff;
   float: left;
   cursor: pointer;
+  padding: 0 20px;
+}
+
+.app__toolbar-tool-text {
+  color: #fff;
+  text-decoration: none;
+}
+
+.app__toolbar-item:first-child {
+  padding-left: 0;
+}
+
+.app__toolbar-tool {
+  display: inline-block;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.app__toolbar-tool:first-child {
+  margin-left: 0;
 }
 
 .app__toolbar-item-icon[class*="fill"] {

@@ -1,22 +1,31 @@
-@import '../../common/index.less';
+@import '../../../components/common/index.less';
 
-.app__scene {
+.app {
   background-color: @global-nav-background-color;
   position: fixed;
   height: 100%;
   width: 100%;
 }
 
-.app__scene-header {
+.app__scene {
+  position: absolute;
+  padding: 20px;
+  top: 32px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.app__header {
   padding: 18px;
   position: relative;
 }
 
-.app__scene-logo {
+.app__header-logo {
   width: 50%;
 }
 
-.app__scene-logo-img {
+.app__header-logo-img {
   display: inline-block;
   vertical-align: middle;
   background: url('../images/logo.png') center center no-repeat;
@@ -26,21 +35,21 @@
   background-size: 60px 60px;
 }
 
-.app__scene-logo-text {
+.app__header-logo-text {
   display: inline-block;
   vertical-align: middle;
   color: #fff;
   margin-left: 10px;
 }
 
-.app__scene-search-bar {
+.app__header-search-bar {
   position: absolute;
   right: 18px;
   top: 24px;
   width: 40%;
 }
 
-.app__scene-search-bar-icon {
+.app__header-search-bar-icon {
   position: absolute;
   right: 10px;
   top: 50%;
@@ -49,7 +58,7 @@
   color: #939497;
 }
 
-.app__scene-search-bar-input {
+.app__header-search-bar-input {
   background: @global-input-background-color;
   height: 32px;
   line-height: 32px;
@@ -61,7 +70,8 @@
   text-indent: 10px;
 }
 
-.app__scene-content {
+.app__content {
+  position: relative;
   background: url(../images/logo_background.png) center 200px no-repeat;
   height: 100%;
 }
