@@ -6,3 +6,10 @@ export function tabPush (tool) {
     tool
   };
 }
+
+export function tabClose (tool) {
+  return {
+    type: constants.TAB_CLOSE,
+    tool
+  }
+}

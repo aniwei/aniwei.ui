@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import './less/index.less';
 
@@ -7,7 +9,20 @@ import Item from './item';
 
 class List extends React.Component {
 
-  itemRender (list) {
+  componentDidMount () {
+    const { router, route } = this.props;
+    const { setRouteLeaveHook } = router;
+
+    setRouteLeaveHook(
+      route,
+      this.routerWillLeave  
+    );
+  }
+
+  routerWillLeave () {
+  }
+
+  itemRender (list, groupId) {
     return list.map((li, index) => {
       const props = {
         code: li.code,
@@ -15,7 +30,7 @@ class List extends React.Component {
         ip: li.ip,
         method: li.method,
         path: li.path,
-        route: `/list/${index}`
+        route: `message/${groupId}/${index}`
       };
 
       return (
@@ -27,10 +42,8 @@ class List extends React.Component {
   groupRender () {
     const { list } = this.props;
 
-    console.log(list)
-
     const groupElement = list.map((li, index) => {
-      const itemElement = this.itemRender(li.list);
+      const itemElement = this.itemRender(li.list, index);
 
       return (
         <div className="app__list-item-group" key={index}>
@@ -64,4 +77,12 @@ class List extends React.Component {
   }
 }
 
-export default List;
+const mapStateToProps = (state, ownProps) => {
+  const { list } = state;
+
+  return {
+    list
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(List));

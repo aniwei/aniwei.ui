@@ -4,11 +4,13 @@ import { routerReducer } from 'react-router-redux'
 
 
 import constants from '../constants';
-import tools from './tools';
+import menus from './menus';
 import tabs from './tabs';
+import list from './list';
 
 export default combineReducers({
-  tools,
+  menus,
   tabs,
+  list,
   routing: routerReducer
 });

@@ -1,127 +1,88 @@
 import React from 'react';
 import classnames from 'classnames';
-import { RouteTransition, presets } from 'react-router-transition';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { RouteTransition } from 'react-router-transition';
 
 // 公共样式
 import '../../components/common';
 import './less/index.less';
 
-import Tab from '../../components/tab';
-import Toolbar from '../../components/toolbar';
+import Navigator from '../../components/navigator';
+import List from '../../components/list';
+import Extensions from '../../components/extensions';
+
 import actions from '../../actions';
 
-const TabPane = Tab.TabPane;
-
-const Logo = () => {
-  return (
-    <div className="app__header-logo">
-      <div className="app__header-logo-img"></div>
-      <div className="app__header-logo-text">
-        aniwei.studio<br />
-        your professional devtool
-        </div>
-    </div>
-  );
-}
-
-const SearchBar = () => {
-  return (
-    <div className="app__header-search-bar">
-      <i className="iconfont icon-search app__header-search-bar-icon"></i>
-      <input type="text" className="app__header-search-bar-input" placeholder="搜索" />
-    </div>
-  );
-}
-
-const Tabs = (props) => {
-  const { tabs, children, onClose } = props;
-  const tabElements = tabs.map(
-    tool => <TabPane 
-      fixed={tool.fixed} 
-      tab={tool.text} 
-      key={tool.key}
-    />
-  );
-
-  if (tabElements.length > 0) {
-    return (
-      <Tab 
-        onClose={onClose} 
-      >
-        {tabElements}
-      </Tab>
-    );  
+const list = [
+  {
+    subject: 'http://www.aniwei.tech',
+    list: [
+      {
+        url: 'http://www.aniwei.tech/test',
+        code: 200,
+        method: 'GET',
+        path: '/test',
+        ip: '127.0.0.1'
+      }, {
+        url: 'http://www.aniwei.tech/test',
+        code: 200,
+        method: 'GET',
+        path: '/test',
+        ip: '127.0.0.1'
+      }
+    ]
+  }, {
+    subject: 'http://www.aniwei.tech',
+    list: [
+      {
+        url: 'http://www.aniwei.tech/test',
+        code: 200,
+        method: 'GET',
+        path: '/test',
+        ip: '127.0.0.1'
+      }
+    ]
   }
-
-  return null;
-}
-
-const AppHeader = (props) => {
-  return (
-    <div className="app__header">
-      <Logo />
-      <SearchBar />
-      <Toolbar {...props} onSelect={props.onSelect}/>
-    </div>
-  );
-}
-
-const AppContent = (props) => {
-  const { location, children } = props;
-  const childElement = (
-    <div className="app__scene">
-      {children}
-    </div>
-  );
-
-  return (
-    <div className="app__content">
-      <Tabs {...props}/>
-      <RouteTransition
-        pathname={location.pathname}
-        {...presets.fade}
-      >
-        {childElement}
-      </RouteTransition>
-    </div>
-  );
-}
+];
 
 class App extends React.Component {
-  onClose = () => {
-
-  }
-
-  onToolSelect = (key, tool) => {
-    const{ onToolSelect } = this.props;
-
-    onToolSelect(tool);
-  }
-
   render () {
+    const { props } = this;
+
+    console.log(props)
+
     return (
       <div className="app">
-        <AppHeader {...this.props} onSelect={this.onToolSelect} />
-        <AppContent {...this.props} onClose={this.onClose}>
-          {this.props.children}
-        </AppContent>
+        <Navigator 
+          className="app__navigator"
+          menus={props.menus}
+        />
+        <div className="app__scene">
+          <RouteTransition
+            pathname={props.location.pathname}
+            atEnter={{ opacity: 0 }}
+            atLeave={{ opacity: 0 }}
+            atActive={{ opacity: 1 }}
+          >
+            {props.children}
+          </RouteTransition>
+        </div>
       </div>
     );
   }
 }
 
 export default connect((state, ownProps) => {
-  const { tools, tabs } = state;
+  const { menus } = state;
 
   return {
-    tools,
-    tabs
+    menus
   };
 }, (dispatch) => {
   return bindActionCreators({
-    onToolSelect: actions.tabPush
+    onSelect: actions.tabPush,
+    onClose: actions.tabClose
   }, dispatch);
 })(withRouter(App));

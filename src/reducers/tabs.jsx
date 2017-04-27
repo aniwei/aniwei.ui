@@ -8,6 +8,10 @@ export default function tabs (state = [], action) {
       state.push(action.tool);
 
       return clone(state);
+    case constants.TAB_CLOSE:
+      state.splice(state.indexOf(action.tool), 1);
+
+      return clone(state);
     default:
       return state;
   }

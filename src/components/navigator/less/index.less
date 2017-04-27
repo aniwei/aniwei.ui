@@ -1,0 +1,105 @@
+@import '../../common/index.less';
+
+.app__navigator {
+  background-color: #2e3238;
+
+  &-logo {
+    padding: 18px;
+
+    &-img {
+      display: inline-block;
+      vertical-align: middle;
+      background: url('../images/logo.png') center center no-repeat;
+      height: 40px;
+      width: 40px;
+      border-radius: 3px;
+      background-size: 40px 40px;
+    }
+  }
+
+  &-menu {
+    height: 40px;
+    position: relative;
+
+    &:after {
+      content: '';
+      border-bottom: 1px solid #24272c;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    &-listview {
+      overflow: hidden;
+      height: 100%;
+      width: 10rem;
+      display: flex;
+      flex-direction: row;
+    }
+
+    &-item {
+      height: 35px;
+      line-height: 40px;
+      flex: 1;
+      color: #fff;
+      text-align: center;
+      position: relative;
+
+      &-link,
+      &-link:hover,
+      &-link:visited,
+      &-link:link {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        border-left: 1px solid #24272c;
+        top: 8px;
+        bottom: 8px;
+        right: 0;
+      }
+
+      &:last-child:after {
+        display: none;
+      }
+
+      &-icon {
+        font-size: 22px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-search {
+    &-bar {
+      margin: 0 18px;
+      position: relative;
+
+      &-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        color: #939497;
+      }
+
+      &-input {
+        background: @global-input-background-color;
+        height: 32px;
+        line-height: 32px;
+        font-size: 13px;
+        color: #fff;
+        border: 0;
+        outline: none;
+        width: 100%;
+        text-indent: 10px;
+      }
+    }
+  }
+
+
+}

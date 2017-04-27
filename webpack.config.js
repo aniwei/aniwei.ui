@@ -24,6 +24,10 @@ var webpackConfig = {
   module: {
     loaders: [
       {
+        test: /\.json?$/,
+        loaders: 'json-loader'
+      },
+      {
         test: /\.jsx?$/,
         loaders: 'babel-loader'
       }, {

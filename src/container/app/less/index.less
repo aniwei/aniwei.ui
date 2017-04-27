@@ -5,73 +5,16 @@
   position: fixed;
   height: 100%;
   width: 100%;
-}
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 1px;
+  font-family: Helvetica;
 
-.app__scene {
-  position: absolute;
-  padding: 20px;
-  top: 32px;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
-
-.app__header {
-  padding: 18px;
-  position: relative;
-}
-
-.app__header-logo {
-  width: 50%;
-}
-
-.app__header-logo-img {
-  display: inline-block;
-  vertical-align: middle;
-  background: url('../images/logo.png') center center no-repeat;
-  height: 60px;
-  width: 60px;
-  border-radius: 3px;
-  background-size: 60px 60px;
-}
-
-.app__header-logo-text {
-  display: inline-block;
-  vertical-align: middle;
-  color: #fff;
-  margin-left: 10px;
-}
-
-.app__header-search-bar {
-  position: absolute;
-  right: 18px;
-  top: 24px;
-  width: 40%;
-}
-
-.app__header-search-bar-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  color: #939497;
-}
-
-.app__header-search-bar-input {
-  background: @global-input-background-color;
-  height: 32px;
-  line-height: 32px;
-  font-size: 13px;
-  color: #fff;
-  border: 0;
-  outline: none;
-  width: 100%;
-  text-indent: 10px;
-}
-
-.app__content {
-  position: relative;
-  background: url(../images/logo_background.png) center 200px no-repeat;
-  height: 100%;
+  &__scene {
+    position: absolute;
+    top: 154px;
+    width: 100%;
+    bottom: 0;
+    overflow: scroll;
+  }
 }

@@ -42,13 +42,34 @@ class Tab extends Component {
   }
 
   onClose = (key, e) => {
-    const { onClose } = this.props;
+    const { onClose, children } = this.props;
+    const childKeys = Children.map(children, (child) => child.key);
+    const index = childKeys.indexOf(key);
+    let activedKey;
 
     if (key === this.state.activedKey) {
+      if (index === childKeys.length - 1) {
+        activedKey = childKeys[childKeys.length - 2];
+      } else {
+        activedKey = childKeys[index + 1];
+      }
+    }
 
+    if (childKeys.length === 1) {
+      this.setState({
+        activeKey: null
+      });
+    } else {
+      if (activedKey) {
+        this.setState({
+          activedKey
+        });
+      }
     }
 
     onClose(key, e);
+
+    e.stopPropagation();
   }
 
   tabsRender () {

@@ -1,7 +1,8 @@
-import { toolSelect } from './tools';
-import { tabPush } from './tabs';
+import { toolSelect } from './menus';
+import { tabPush, tabClose } from './tabs';
 
 export default {
   toolSelect,
-  tabPush
+  tabPush,
+  tabClose
 };
