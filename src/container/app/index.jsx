@@ -1,17 +1,20 @@
 import React from 'react';
 import classnames from 'classnames';
-import { withRouter } from 'react-router';
+import { Route, withRouter, BrowserRouter, HashRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteTransition } from 'react-router-transition';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 
 // 公共样式
 import '../../components/common';
 import './less/index.less';
 
 import Navigator from '../../components/navigator';
-import List from '../../components/list';
-import Extensions from '../../components/extensions';
+import List from '../list';
+import Extensions from '../extensions';
+import Welcome from '../welcome';
 
 import actions from '../../actions';
 
@@ -51,25 +54,22 @@ class App extends React.Component {
   render () {
     const { props } = this;
 
-    console.log(props)
-
     return (
-      <div className="app">
-        <Navigator 
-          className="app__navigator"
-          menus={props.menus}
-        />
-        <div className="app__scene">
-          <RouteTransition
-            pathname={props.location.pathname}
-            atEnter={{ opacity: 0 }}
-            atLeave={{ opacity: 0 }}
-            atActive={{ opacity: 1 }}
-          >
-            {props.children}
-          </RouteTransition>
-        </div>
-      </div>
+      <HashRouter>
+        <Route render={({ location }) => (
+          <div className="app">
+            <Navigator 
+              className="app__navigator"
+              menus={props.menus}
+            />
+            <div className="app__scene">
+              <Route exact path="/" component={Welcome} />
+              <Route path="/message" component={List} />
+              <Route path="/app" component={Extensions} />
+            </div>
+          </div>  
+        )} />
+      </HashRouter>
     );
   }
 }
@@ -85,4 +85,4 @@ export default connect((state, ownProps) => {
     onSelect: actions.tabPush,
     onClose: actions.tabClose
   }, dispatch);
-})(withRouter(App));
+})(App);

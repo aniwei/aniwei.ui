@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import './less/index.less';
 
@@ -8,21 +8,7 @@ import SearchBar from './search';
 import Item from './item';
 
 class List extends React.Component {
-
-  componentDidMount () {
-    const { router, route } = this.props;
-    const { setRouteLeaveHook } = router;
-
-    setRouteLeaveHook(
-      route,
-      this.routerWillLeave  
-    );
-  }
-
-  routerWillLeave () {
-  }
-
-  itemRender (list, groupId) {
+  itemRender (list, group) {
     return list.map((li, index) => {
       const props = {
         code: li.code,
@@ -30,11 +16,13 @@ class List extends React.Component {
         ip: li.ip,
         method: li.method,
         path: li.path,
-        route: `message/${groupId}/${index}`
+        route: `/message/${group}/${index}`,
+        group,
+        id: index
       };
 
       return (
-        <Item {...props} key={index} />
+        <Item {...props} key={index}/>
       );
     });
   }
@@ -51,7 +39,8 @@ class List extends React.Component {
             <div className="app__list-item-group-subject">
               {li.subject}
             </div>
-          </div>  
+          </div>
+         
           <div className="app__list-item-group-content">
             {itemElement}
           </div>

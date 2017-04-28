@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Link } from 'react-router';
+import { Link, Route } from 'react-router-dom';
 
 import Overview from './overview';
 
@@ -17,10 +17,27 @@ export default class Item extends React.Component {
 
   }
 
-  contentRender () {
+  contentRender (groupId, itemId) {
+    const { group, id } = this.props;
+
     return (
-      <div className="app__list-item-group-content">
-      </div>
+      <Route path="/message/:group/:id" render={({ location, match }) => {
+        const { params } = match;
+        let classes;
+
+        if (params) {
+          classes = classnames({
+            ['app__list-item_expand']: params.group - 0 === group && params.id - 0 === id,
+            ['app__list-item-overview']: true
+          });
+        }
+
+        return (
+          <div className={classes}>
+          </div>
+        );       
+      }}/>  
+     
     );
   }
 
@@ -51,8 +68,7 @@ export default class Item extends React.Component {
     const { code, url, path, method, ip } = this.props;
 
     const classes = classnames({
-      ['app__list-item']: true,
-      ['app__list-item_expand']: this.state.expanded
+      ['app__list-item']: true
     });
 
     return (

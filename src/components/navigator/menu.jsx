@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 export default class Menu extends React.Component {
 
@@ -13,14 +13,14 @@ export default class Menu extends React.Component {
       const classes = classnames({
         [`iconfont`]: true,
         [`app__navigator-menu-item-icon`]: true,
-        [`icon-${menu.key}-${fillStyle}`]: true
+        [`icon-${menu.key}-line`]: true
       });  
 
       return (
         <li className="app__navigator-menu-item" key={menu.key}>
-          <Link className="app__navigator-menu-item-link" to={menu.key}>
+          <NavLink className="app__navigator-menu-item-link" to={menu.key} activeClassName={`icon-${menu.key}-line`}>
             <i className={classes}></i>
-          </Link>
+          </NavLink>
         </li>
       );
     });
