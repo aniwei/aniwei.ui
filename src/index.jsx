@@ -13,9 +13,9 @@ import Routing from './routing';
 import list from './data/list.json';
 
 const menus = [
-  {key: 'message', route: 'message', text: '请求数据', active: false, component: List},
-  {key: 'app', text: '设置', active: false, component: Extensions},
-  {key: 'setting', text: '设置', active: false, component: Settings}  
+  {key: 'message', route: 'list', text: '请求数据', active: false, component: List},
+  {key: 'app', route: 'extensions', text: '设置', active: false, component: Extensions},
+  {key: 'setting', route: 'settings', text: '设置', active: false, component: Settings}  
 ];
 
 const store = {

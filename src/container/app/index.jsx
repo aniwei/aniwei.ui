@@ -4,7 +4,7 @@ import { Route, withRouter, BrowserRouter, HashRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteTransition } from 'react-router-transition';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 
 // 公共样式
@@ -63,9 +63,9 @@ class App extends React.Component {
               menus={props.menus}
             />
             <div className="app__scene">
-              <Route exact path="/" component={Welcome} />
-              <Route path="/message" component={List} />
-              <Route path="/app" component={Extensions} />
+              <Route path="/" component={Welcome} />
+              <Route path="/list" component={List} />
+              <Route path="/extensions" component={Extensions} />
             </div>
           </div>  
         )} />

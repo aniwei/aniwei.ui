@@ -18,7 +18,7 @@ export default class Navigator extends React.Component {
     return (
       <div className={className}>
         <Logo />
-        <Menu list={menus}/>
+        <Menu list={menus} />
       </div>
     );
   }

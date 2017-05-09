@@ -3,8 +3,6 @@ import classnames from 'classnames';
 import { Link, Route } from 'react-router-dom';
 import queryString from 'query-string';
 
-import Overview from './overview';
-
 export default class Item extends React.Component {
   onItemClick = () => {
 

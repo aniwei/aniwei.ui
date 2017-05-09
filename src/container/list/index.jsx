@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import './less/index.less';
 
@@ -9,15 +10,32 @@ import Item from './item';
 
 class List extends React.Component {
   itemRender (list, group) {
+    const { match, location } = this.props;
+
     return list.map((li, index) => {
+      let url;
+      const query = queryString.parse(location.search);
+
+      if (query.group - 0 === group && query.id - 0 === index) {
+        delete query.id;
+        delete query.group;
+        url = `/list?${queryString.stringify(query)}`;
+      } else {
+        query.group = group;
+        query.id = index;
+        url = `/list?${queryString.stringify(query)}`;
+      }
+
       const props = {
         code: li.code,
         url: li.url,
         ip: li.ip,
         method: li.method,
         path: li.path,
-        route: `/message/${group}/${index}`,
+        route: url,
         group,
+        match,
+        location,
         id: index
       };
 
